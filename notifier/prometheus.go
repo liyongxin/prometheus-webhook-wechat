@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/pkg/errors"
+	"fmt"
 	"github.com/liyongxin/prometheus-webhook-wechat/models"
 	"github.com/liyongxin/prometheus-webhook-wechat/template"
 	"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
-	"fmt"
+	"github.com/pkg/errors"
 )
 
 func BuildWechatNotification(rs *webrouter.WechatResource, promMessage *models.WebhookMessage) (*models.WechatNotification, error) {
@@ -27,9 +27,9 @@ func BuildWechatNotification(rs *webrouter.WechatResource, promMessage *models.W
 	}
 
 	notification := &models.WechatNotification{
-		ChatId: rs.CorpChatId,
+		ChatId:      rs.CorpChatId,
 		MessageType: "markdown",
-		Markdown: &notifyContent,
+		Markdown:    &notifyContent,
 	}
 	return notification, nil
 }

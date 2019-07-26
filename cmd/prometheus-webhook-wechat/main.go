@@ -10,20 +10,20 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	"github.com/liyongxin/prometheus-webhook-wechat/chilog"
+	"github.com/liyongxin/prometheus-webhook-wechat/template"
+	"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
 	"github.com/prometheus/common/promlog"
 	"github.com/prometheus/common/promlog/flag"
 	"github.com/prometheus/common/version"
-	"github.com/liyongxin/prometheus-webhook-wechat/template"
-	"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
-	"github.com/liyongxin/prometheus-webhook-wechat/chilog"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
 	listenAddress    = kingpin.Flag("web.listen-address", "The address to listen on for web interface.").Default(":8765").String()
-	corpId = kingpin.Flag("corp.id", "corp id created by wechat app.").Required().String()
-	corpSecret = kingpin.Flag("corp.secret", "corp app secret created on wechat.").Required().String()
-	corpChatId = kingpin.Flag("corp.chatid", "chatid id created by wechat app.").Required().String()
+	corpId           = kingpin.Flag("corp.id", "corp id created by wechat app.").Required().String()
+	corpSecret       = kingpin.Flag("corp.secret", "corp app secret created on wechat.").Required().String()
+	corpChatId       = kingpin.Flag("corp.chatid", "chatid id created by wechat app.").Required().String()
 	requestTimeout   = kingpin.Flag("ding.timeout", "Timeout for invoking Wechat webhook.").Default("5s").Duration()
 	templateFileName = kingpin.Flag("template.file", "Customized template file (see template/default.tmpl for example)").Default("").String()
 )
@@ -69,9 +69,9 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	weChatResource := &webrouter.WechatResource{
-		Logger:   logger,
-		CorpId: *corpId,
-		WechatUrl: "https://qyapi.weixin.qq.com/cgi-bin/",
+		Logger:     logger,
+		CorpId:     *corpId,
+		WechatUrl:  "https://qyapi.weixin.qq.com/cgi-bin/",
 		CorpSecret: *corpSecret,
 		CorpChatId: *corpChatId,
 		HttpClient: &http.Client{

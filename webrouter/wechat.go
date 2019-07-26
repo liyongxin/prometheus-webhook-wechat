@@ -13,12 +13,12 @@ import (
 )
 
 type WechatResource struct {
-	Logger     	    log.Logger
-	CorpChatId		string
-	CorpId     		string
-	CorpSecret		string
-	WechatUrl		string
-	HttpClient 		*http.Client
+	Logger     log.Logger
+	CorpChatId string
+	CorpId     string
+	CorpSecret string
+	WechatUrl  string
+	HttpClient *http.Client
 }
 
 func (rs *WechatResource) Routes() chi.Router {
@@ -33,7 +33,7 @@ func (rs *WechatResource) SendNotification(w http.ResponseWriter, r *http.Reques
 	corpChatId := rs.CorpChatId
 	corpId := rs.CorpId
 	corpSecret := rs.CorpSecret
-	if corpChatId == "" || corpId == "" || corpSecret == ""{
+	if corpChatId == "" || corpId == "" || corpSecret == "" {
 		http.Error(w, "Missing required params", http.StatusBadRequest)
 		http.NotFound(w, r)
 		return
