@@ -10,9 +10,12 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
-	"github.com/liyongxin/prometheus-webhook-wechat/chilog"
-	"github.com/liyongxin/prometheus-webhook-wechat/template"
-	"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
+	"prometheus-webhook-wechat/chilog"
+	"prometheus-webhook-wechat/template"
+	"prometheus-webhook-wechat/webrouter"
+	//"github.com/liyongxin/prometheus-webhook-wechat/chilog"
+	//"github.com/liyongxin/prometheus-webhook-wechat/template"
+	//"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
 	"github.com/prometheus/common/promlog"
 	"github.com/prometheus/common/promlog/flag"
 	"github.com/prometheus/common/version"
@@ -60,7 +63,7 @@ func main() {
 	}
 
 	// Print current profile configuration
-	level.Info(logger).Log("msg", fmt.Sprintf("send message to following chatgroup id: %s", corpChatId))
+	level.Info(logger).Log("msg", fmt.Sprintf("send message to following chatgroup id: %s", *corpChatId))
 
 	r := chi.NewRouter()
 	//r.Use(middleware.CloseNotify)
@@ -71,7 +74,6 @@ func main() {
 	weChatResource := &webrouter.WechatResource{
 		Logger:     logger,
 		CorpId:     *corpId,
-		WechatUrl:  "https://qyapi.weixin.qq.com/cgi-bin/",
 		CorpSecret: *corpSecret,
 		CorpChatId: *corpChatId,
 		HttpClient: &http.Client{

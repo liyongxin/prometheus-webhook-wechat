@@ -59,19 +59,6 @@
   revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/liyongxin/prometheus-webhook-wechat"
-  packages = [
-    "chilog",
-    "models",
-    "notifier",
-    "template",
-    "template/internal/deftmpl",
-    "webrouter"
-  ]
-  revision = "8ff1db1def1290697c011f78378ffdcc6b771610"
-
-[[projects]]
   name = "github.com/matttproud/golang_protobuf_extensions"
   packages = ["pbutil"]
   revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
@@ -108,8 +95,7 @@
     "promlog/flag",
     "version"
   ]
-  revision = "31bed53e4047fd6c510e43a941f90cb31be0972a"
-  version = "v0.6.0"
+  revision = "89604d197083d4781071d3c65855d24ecfb0a563"
 
 [[projects]]
   name = "github.com/prometheus/procfs"
@@ -135,6 +121,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6da0c537738803b46f418ab1118d2b7784dcf8bc6647a35b3368a98f64d0555a"
+  inputs-digest = "0f4f4211832e140a471d92f8a244a809a0fb306687d692c0cd551a2ced6ff121"
   solver-name = "gps-cdcl"
   solver-version = 1

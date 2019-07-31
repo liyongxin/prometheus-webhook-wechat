@@ -25,9 +25,13 @@
 #   unused-packages = true
 
 
+#[[constraint]]
+#  name = "github.com/gin-gonic/gin"
+#  version = "1.4.0"
+
 [[constraint]]
-  name = "github.com/gin-gonic/gin"
-  version = "1.4.0"
+  name = "github.com/prometheus/common"
+  revision = "89604d197083d4781071d3c65855d24ecfb0a563"
 
 [prune]
   go-tests = true

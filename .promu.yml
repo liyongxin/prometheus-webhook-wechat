@@ -1,12 +1,12 @@
 repository:
-  path: github.com/liyongxin/prometheus-webhook-wechat
+  path: prometheus-webhook-wechat
 go:
   version: 1.9.2
   cgo: false
 build:
   binaries:
     - name: prometheus-webhook-wechat
-      path: ./cmd/prometheus-webhook-wechat
+      path: ./cmd
   flags: -a -tags 'netgo static_build'
   ldflags: |
     -s

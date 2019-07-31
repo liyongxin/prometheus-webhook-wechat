@@ -4,4 +4,4 @@
 
 *.tar.gz
 coverage.txt
-/prometheus-webhook-dingtalk
+/prometheus-webhook-wechat

@@ -8,8 +8,10 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
-	"github.com/liyongxin/prometheus-webhook-wechat/models"
-	"github.com/liyongxin/prometheus-webhook-wechat/notifier"
+	"prometheus-webhook-wechat/models"
+	"prometheus-webhook-wechat/notifier"
+	//"github.com/liyongxin/prometheus-webhook-wechat/models"
+	//"github.com/liyongxin/prometheus-webhook-wechat/notifier"
 )
 
 type WechatResource struct {
@@ -38,7 +40,12 @@ func (rs *WechatResource) SendNotification(w http.ResponseWriter, r *http.Reques
 		http.NotFound(w, r)
 		return
 	}
-
+	var weChatMsg = &models.WechatCorpInfo{
+		CorpId:     corpId,
+		CorpSecret: corpSecret,
+		CorpChatId: corpChatId,
+		WechatUrl: "https://qyapi.weixin.qq.com/cgi-bin/",
+	}
 	var promMessage models.WebhookMessage
 	if err := json.NewDecoder(r.Body).Decode(&promMessage); err != nil {
 		level.Error(logger).Log("msg", "Cannot decode prometheus webhook JSON request", "err", err)
@@ -46,14 +53,14 @@ func (rs *WechatResource) SendNotification(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	notification, err := notifier.BuildWechatNotification(rs, &promMessage)
+	notification, err := notifier.BuildWechatNotification(weChatMsg, &promMessage)
 	if err != nil {
 		level.Error(logger).Log("msg", "Failed to build notification", "err", err)
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
 
-	robotResp, err := notifier.SendWechatNotification(rs.HttpClient, rs, notification)
+	robotResp, err := notifier.SendWechatNotification(rs.HttpClient, weChatMsg, notification)
 	if err != nil {
 		level.Error(logger).Log("msg", "Failed to send notification", "err", err)
 		http.Error(w, "Bad Request", http.StatusBadRequest)

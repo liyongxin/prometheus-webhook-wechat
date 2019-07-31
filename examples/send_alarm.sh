@@ -43,4 +43,4 @@ alerts1='{
     "version": "3"
 }'
 
-curl -XPOST -d"$alerts1" http://localhost:8060/v1/wechat/general_alerting/send
+curl -XPOST -d"$alerts1" http://localhost:8765/v1/wechat/general_alerting/send

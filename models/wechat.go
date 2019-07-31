@@ -3,7 +3,7 @@ package models
 type WechatNotificationResponse struct {
 	ErrorMessage string `json:"errmsg"`
 	ErrorCode    int    `json:"errcode"`
-	AccessToken  int    `json:"access_token"`
+	AccessToken  string    `json:"access_token"`
 }
 
 type WechatNotification struct {
@@ -15,4 +15,11 @@ type WechatNotification struct {
 
 type WechatNotificationText struct {
 	Content string `json:"content"`
+}
+
+type WechatCorpInfo struct {
+	CorpChatId string
+	CorpId     string
+	CorpSecret string
+	WechatUrl  string
 }

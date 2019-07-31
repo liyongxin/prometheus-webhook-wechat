@@ -6,18 +6,19 @@ import (
 	"net/http"
 
 	"fmt"
-	"github.com/liyongxin/prometheus-webhook-wechat/models"
-	"github.com/liyongxin/prometheus-webhook-wechat/template"
-	"github.com/liyongxin/prometheus-webhook-wechat/webrouter"
+	"prometheus-webhook-wechat/models"
+	"prometheus-webhook-wechat/template"
+	//"github.com/liyongxin/prometheus-webhook-wechat/models"
+	//"github.com/liyongxin/prometheus-webhook-wechat/template"
 	"github.com/pkg/errors"
 )
 
-func BuildWechatNotification(rs *webrouter.WechatResource, promMessage *models.WebhookMessage) (*models.WechatNotification, error) {
-	title, err := template.ExecuteTextString(`{{ template "wechat.link.title" . }}`, promMessage)
+func BuildWechatNotification(rs *models.WechatCorpInfo, promMessage *models.WebhookMessage) (*models.WechatNotification, error) {
+	title, err := template.ExecuteTextString(`{{ template "ding.link.title" . }}`, promMessage)
 	if err != nil {
 		return nil, err
 	}
-	content, err := template.ExecuteTextString(`{{ template "wechat.link.content" . }}`, promMessage)
+	content, err := template.ExecuteTextString(`{{ template "ding.link.content" . }}`, promMessage)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +35,7 @@ func BuildWechatNotification(rs *webrouter.WechatResource, promMessage *models.W
 	return notification, nil
 }
 
-func SendWechatNotification(httpClient *http.Client, rs *webrouter.WechatResource, notification *models.WechatNotification) (*models.WechatNotificationResponse, error) {
+func SendWechatNotification(httpClient *http.Client, rs *models.WechatCorpInfo, notification *models.WechatNotification) (*models.WechatNotificationResponse, error) {
 	body, err := json.Marshal(&notification)
 	if err != nil {
 		return nil, errors.Wrap(err, "error encoding Wechat request")
@@ -69,7 +70,7 @@ func SendWechatNotification(httpClient *http.Client, rs *webrouter.WechatResourc
 	return &robotResp, nil
 }
 
-func getAccessToken(rs *webrouter.WechatResource) (*models.WechatNotificationResponse, error) {
+func getAccessToken(rs *models.WechatCorpInfo) (*models.WechatNotificationResponse, error) {
 	url := fmt.Sprintf("%s/gettoken?corpid=%s&corpsecret=%s", rs.WechatUrl, rs.CorpId, rs.CorpSecret)
 	httpRes, err := http.Get(url)
 	if err != nil {

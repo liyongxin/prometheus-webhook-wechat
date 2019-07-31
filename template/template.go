@@ -6,7 +6,7 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/liyongxin/prometheus-webhook-wechat/template/internal/deftmpl"
+	"prometheus-webhook-wechat/template/internal/deftmpl"
 )
 
 var (
